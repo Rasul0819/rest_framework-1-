@@ -4,6 +4,11 @@ class HotelCategory(models.Model):
     klas = models.CharField(max_length=255,verbose_name='Hoteldin kategoriyalari:')
     slug = models.SlugField(verbose_name='Hoteldin slugi:',
                             max_length=255,unique=True)
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+    def __str__(self) -> str:
+        return self.klas
 class Hotel(models.Model):
     hotel_name = models.CharField(max_length=255,verbose_name='Hoteldin ati:')
     adress = models.CharField(max_length=255,verbose_name='Hoteldin adresi:')
@@ -17,4 +22,9 @@ class Hotel(models.Model):
                                upload_to='hotels',null=True,blank=True)
     image3 = models.ImageField(verbose_name='Hoteldin suwreti 3:',
                                upload_to='hotels',null=True,blank=True)
+    class Meta:
+        verbose_name = 'Hotel'
+        verbose_name_plural = 'Hoteller'
+    def __str__(self):
+        return self.hotel_name
     
