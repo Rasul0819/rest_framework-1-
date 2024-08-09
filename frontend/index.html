@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+</head>
+<body>
+    <h1>Hotels List</h1>
+    <ul id="hotels"></ul>
+    <script>
+        fetch('/hotels')
+            .then(response => response.json())
+            .then(data => {
+                const hotelsList = document.getElementById('hotels');
+                data.forEach(hotel => {
+                    const li = document.createElement('li');
+                    
+                    // Название отеля
+                    const name = document.createElement('h2');
+                    name.textContent = hotel.hotel_name;
+                    li.appendChild(name);
+                    
+                    // Адрес отеля
+                    const address = document.createElement('p');
+                    address.textContent = `Address: ${hotel.adress}`;
+                    li.appendChild(address);
+                    
+                    // Категория отеля
+                    const category = document.createElement('p');
+                    category.textContent = `Category: ${hotel.klas}`;
+                    li.appendChild(category);
+                    
+                    // Цена за ночь
+                    const price = document.createElement('p');
+                    price.textContent = `Price per night: ${hotel.baxasi} KZT`;
+                    li.appendChild(price);
+                    
+                    // Изображения отеля
+                    if (hotel.image1) {
+                        const img1 = document.createElement('img');
+                        img1.src = hotel.image1;
+                        img1.alt = 'Hotel Image 1';
+                        img1.width = 200;
+                        li.appendChild(img1);
+                    }
+                    if (hotel.image2) {
+                        const img2 = document.createElement('img');
+                        img2.src = hotel.image2;
+                        img2.alt = 'Hotel Image 2';
+                        img2.width = 200;
+                        li.appendChild(img2);
+                    }
+                    if (hotel.image3) {
+                        const img3 = document.createElement('img');
+                        img3.src = hotel.image3;
+                        img3.alt = 'Hotel Image 3';
+                        img3.width = 200;
+                        li.appendChild(img3);
+                    }
+                    
+                    hotelsList.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>
