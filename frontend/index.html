@@ -16,9 +16,12 @@
                 data.forEach(hotel => {
                     const li = document.createElement('li');
                     
-                    // Название отеля
+                    // Название отеля с ссылкой
                     const name = document.createElement('h2');
-                    name.textContent = hotel.hotel_name;
+                    const link = document.createElement('a');
+                    link.href = `/hotels/${hotel.id}`;
+                    link.textContent = hotel.hotel_name;
+                    name.appendChild(link);
                     li.appendChild(name);
                     
                     // Адрес отеля
@@ -36,28 +39,19 @@
                     price.textContent = `Price per night: ${hotel.baxasi} KZT`;
                     li.appendChild(price);
                     
-                    // Изображения отеля
-                    if (hotel.image1) {
-                        const img1 = document.createElement('img');
-                        img1.src = hotel.image1;
-                        img1.alt = 'Hotel Image 1';
-                        img1.width = 200;
-                        li.appendChild(img1);
-                    }
-                    if (hotel.image2) {
-                        const img2 = document.createElement('img');
-                        img2.src = hotel.image2;
-                        img2.alt = 'Hotel Image 2';
-                        img2.width = 200;
-                        li.appendChild(img2);
-                    }
-                    if (hotel.image3) {
-                        const img3 = document.createElement('img');
-                        img3.src = hotel.image3;
-                        img3.alt = 'Hotel Image 3';
-                        img3.width = 200;
-                        li.appendChild(img3);
-                    }
+                    // Изображения отеля с ссылкой
+                    [hotel.image1, hotel.image2, hotel.image3].forEach((imageSrc, index) => {
+                        if (imageSrc) {
+                            const img = document.createElement('img');
+                            img.src = imageSrc;
+                            img.alt = `Hotel Image ${index + 1}`;
+                            img.width = 200;
+                            const imgLink = document.createElement('a');
+                            imgLink.href = `/hotels/${hotel.id}`;
+                            imgLink.appendChild(img);
+                            li.appendChild(imgLink);
+                        }
+                    });
                     
                     hotelsList.appendChild(li);
                 });
